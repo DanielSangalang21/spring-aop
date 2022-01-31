@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:aop = "http://www.springframework.org/schema/aop"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+   http://www.springframework.org/schema/aop 
+   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+
+   <bean id = "beforeAspect" class = "com.in28minutes.spring.aop.springaop.aspect.BeforeAspect"/>
+
+	<aop:config>
+	   <aop:aspect id = "myAspect" ref = "beforeAspect">
+			<aop:pointcut id="myPointCut" expression="execution(* com.in28minutes.spring.aop.springaop.business.*.*(..))" />
+			<aop:before method="before" pointcut-ref="myPointCut" />
+	   </aop:aspect>
+	</aop:config>	
+	
+	<bean id = "business1" class = "com.in28minutes.spring.aop.springaop.business.Business1">
+		<property name="dao1" ref="dao1"/>
+	</bean>
+	
+	<bean id = "business2" class = "com.in28minutes.spring.aop.springaop.business.Business2">
+		<property name="dao2" ref="dao2"/>
+	</bean>
+	
+	<bean id = "dao1" class = "com.in28minutes.spring.aop.springaop.data.Dao1"/>
+	<bean id = "dao2" class = "com.in28minutes.spring.aop.springaop.data.Dao2"/>
+
+	
+</beans>
